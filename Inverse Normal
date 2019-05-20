@@ -1,0 +1,7 @@
+##Inverse Normal Transformation of phenotype data in R
+
+read.table("./filename.csv", header=TRUE, sep=",") -> Y
+X <- Y$variable
+as.vector(X)
+qnorm((rank(X)-0.5)/length(X)) -> output
+write.table(output, file="filename_inverse.csv")
