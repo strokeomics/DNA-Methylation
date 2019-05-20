@@ -1,0 +1,27 @@
+##Logistic Regression for DNA methylation data
+
+data <- read.csv("filename.csv", header=T, sep=",")
+data.frame(data) -> data
+
+##30 is indicative of the 30th column of the file. This is where the beta values start. 
+for(i in colnames(data)[30:length(names(data))]) {
+fit <- glm(StrokeOutcome ~ AGE + SEX + sPCA1 + sPCA2 + sPCA3 + sPCA4 + sPCA5 + sPCA6 + sPCA7 + sPCA8 + sPCA9 + sPCA10 + Round1 + Round2 + Round3 + CD8T + CD4T + Gran + Mono + NK + Bcell + data[[i]], data = data, family="binomial")
+
+##23 is indicative of the 23rd variable (in this case that would be data[[i]]). Start counting at StrokeOutcome. This needs to be adjusted when variables are added or removed. The 4 is indicative of the fourth column of output (ie. pvalue) 
+paste(i, pvalue <- summary(fit)$coefficients[23,4]) -> output
+write(output,file="./filename.csv", append=TRUE)
+}
+
+
+
+
+##Linear Regression for DNA methylation data
+
+data <- read.table("C://Users/davisnic12/Desktop/", header=TRUE, sep=",")
+data.frame(data) -> data
+
+for(i in colnames(data)[30:length(names(data))]) {
+fit <- lm(Hcy ~ AGE + SEX + sPCA1 + sPCA2 + sPCA3 + sPCA4 + sPCA5 + sPCA6 + sPCA7 + sPCA8 + sPCA9 + sPCA10 + Round1 + Round2 + Round3 + CD8T + CD4T + NK + Bcell + Mono + Gran + data[[i]], data = data)
+paste(i, pvalue <- summary(fit)$coefficients[23,4]) -> output
+write(output,file= "./filename.csv", append=TRUE)
+ }
